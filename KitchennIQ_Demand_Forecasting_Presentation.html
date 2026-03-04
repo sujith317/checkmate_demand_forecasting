@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitchen IQ — Demand & Drop Orchestration | Leadership Brief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    /* Checkmate-inspired palette — https://www.itsacheckmate.com/ */
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f8fa;
+      --surface-elevated: #eef0f4;
+      --text: #1a1d21;
+      --text-muted: #5f6574;
+      --accent: #0d9488;
+      --accent-soft: rgba(13, 148, 136, 0.12);
+      --accent-dark: #0f766e;
+      --success: #059669;
+      --success-soft: rgba(5, 150, 105, 0.12);
+      --border: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a[href^="http"] {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a[href^="http"]:hover {
+      text-decoration: underline;
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .hero .sub-project {
+      font-size: 1.25rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero .hero-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Section */
+    section {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    section h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    section p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    section p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .card strong {
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .card span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Phase blocks */
+    .phase-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .phase-block h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .phase-block h3::before {
+      content: '';
+      width: 4px;
+      height: 1.2em;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .phase-block ul {
+      list-style: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .phase-block li {
+      padding: 0.35rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+
+    .phase-block li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 0.85rem 1.25rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: var(--surface);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td {
+      color: var(--text);
+    }
+
+    tr:nth-child(even) td {
+      background: var(--surface);
+    }
+
+    /* Impact metrics */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .impact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .impact-card .value {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.5rem;
+      color: var(--accent-dark);
+      margin-bottom: 0.35rem;
+    }
+
+    .impact-card .label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .impact-card .rationale {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* Positioning callout */
+    .callout {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .callout p {
+      color: var(--text);
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    /* Side nav */
+    nav {
+      width: 220px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+
+    nav .nav-inner {
+      padding: 0 1rem;
+    }
+
+    nav .nav-heading {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      margin: 0.15rem 0;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    nav .nav-heading:hover {
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+    }
+
+    nav .nav-sub {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.35rem 0.75rem 0.35rem 1.5rem;
+      margin: 0.1rem 0;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    nav .nav-sub:hover {
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+    }
+
+    nav .nav-group {
+      margin-bottom: 0.25rem;
+    }
+
+    main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        flex-direction: column;
+      }
+      nav {
+        width: 100%;
+        max-height: none;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+      }
+      nav .nav-inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+        padding: 0;
+      }
+      nav .nav-group {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 0;
+      }
+      nav .nav-sub {
+        padding: 0.25rem 0.6rem;
+        margin: 0;
+      }
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 2rem 3rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* Why 15-min section */
+    section h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1.25rem 0 0.5rem;
+    }
+    section h4:first-of-type { margin-top: 0; }
+    .reason-num {
+      color: var(--accent);
+      font-weight: 700;
+      margin-right: 0.25rem;
+    }
+
+    .opportunity-list {
+      list-style: none;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 0.75rem;
+    }
+    .opportunity-list li {
+      padding: 0.35rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .opportunity-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    /* Problem cards */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      position: relative;
+    }
+    .problem-card .problem-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .problem-card .problem-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .problem-card .problem-line {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0;
+    }
+    .opportunity-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 500px) {
+      .opportunity-cards { grid-template-columns: 1fr; }
+    }
+    .opportunity-card {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .opportunity-card::before {
+      content: '✓ ';
+      color: var(--accent-dark);
+    }
+
+    /* Appendix */
+    .appendix-figure {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .appendix-figure img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .appendix-figure figcaption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Example scenario selector */
+    .scenario-select-wrap {
+      margin: 1.25rem 0;
+    }
+    .scenario-select-wrap label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .scenario-select {
+      width: 100%;
+      max-width: 340px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .scenario-select:hover,
+    .scenario-select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+    .scenario-panel {
+      display: none;
+      margin-top: 1rem;
+    }
+    .scenario-panel.active {
+      display: block;
+    }
+    .scenario-panel .interpretation {
+      margin-top: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .scenario-panel .interpretation strong {
+      color: var(--text);
+    }
+    .scenario-panel .interpretation ul {
+      margin: 0.5rem 0 0 1rem;
+      padding: 0;
+    }
+    .scenario-panel .interpretation li {
+      margin: 0.25rem 0;
+    }
+    #example-final .table-wrap td:last-child {
+      min-width: 140px;
+      max-width: 240px;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <nav>
+      <div class="nav-inner">
+        <a href="#problem" class="nav-heading">Problem</a>
+        <a href="#overview" class="nav-heading">Overview</a>
+        <div class="nav-group">
+          <a href="#phase1" class="nav-heading">Phase 1</a>
+          <a href="#why-probabilities" class="nav-sub">Why three probabilities?</a>
+          <a href="#why-15min" class="nav-sub">Why 15 min?</a>
+        </div>
+        <a href="#phase2" class="nav-heading">Phase 2</a>
+        <div class="nav-group">
+          <a href="#output" class="nav-heading">Output</a>
+          <a href="#example-phase1" class="nav-sub">Example – Phase 1</a>
+          <a href="#example-phase2" class="nav-sub">Example – Phase 2</a>
+          <a href="#example-final" class="nav-sub">Example – Final</a>
+        </div>
+        <a href="#impact" class="nav-heading">Impact</a>
+        <a href="#positioning" class="nav-heading">Positioning</a>
+        <a href="#appendix" class="nav-heading">Appendix</a>
+      </div>
+    </nav>
+
+    <main>
+    <div class="container">
+      <header class="hero">
+        <p class="section-label" style="margin-bottom: 0.5rem;">Checkmate · Kitchen IQ</p>
+        <h1>Kitchen IQ</h1>
+        <p class="subtitle sub-project">Demand & Drop Orchestration</p>
+        <p class="hero-desc">Leadership Brief — Demand Forecasting & Kitchen Execution</p>
+      </header>
+
+      <section id="problem">
+        <p class="section-label">Context</p>
+        <h2>Problem Statement</h2>
+        <p style="margin-bottom: 0;">QSR kitchens decide when and how much to cook using intuition, not data—while demand swings across drive-thru, dine-in, and delivery.</p>
+
+        <div class="problem-grid">
+          <div class="problem-card">
+            <div class="problem-num">01</div>
+            <div class="problem-title">Demand volatility</div>
+            <p class="problem-line">Spikes from batching, promotions, and weather make demand hard to anticipate in short windows.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-num">02</div>
+            <div class="problem-title">Food waste</div>
+            <p class="problem-line">Overprepping to avoid runouts plus strict hold times on tenders and fries drive avoidable waste.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-num">03</div>
+            <div class="problem-title">Stockouts & delays</div>
+            <p class="problem-line">Underestimating demand leads to runouts, longer wait times, and poor experience at peak.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-num">04</div>
+            <div class="problem-title">No near-term visibility</div>
+            <p class="problem-line">Hourly or daily tools are too coarse; managers need 15–30 minute demand to act in time.</p>
+          </div>
+          <div class="problem-card">
+            <div class="problem-num">05</div>
+            <div class="problem-title">Multi-channel complexity</div>
+            <p class="problem-line">Drive-thru, dine-in, and delivery at once create bursty, unpredictable order patterns.</p>
+          </div>
+        </div>
+
+        <p class="section-label" style="margin-top: 2rem;">Opportunity</p>
+        <p style="margin-bottom: 0.5rem;">Kitchen IQ turns reactive cooking into data-driven decisions: short-term demand forecasts → actionable drop recommendations.</p>
+        <div class="opportunity-cards">
+          <div class="opportunity-card">Reduce food waste</div>
+          <div class="opportunity-card">Prevent stockouts</div>
+          <div class="opportunity-card">Maintain service speed</div>
+          <div class="opportunity-card">Improve kitchen efficiency</div>
+        </div>
+      </section>
+
+      <section id="overview">
+        <p class="section-label">Executive Summary</p>
+        <h2>What Demand & Drop Orchestration Does</h2>
+        <p>
+          Under <strong>Kitchen IQ</strong>, the <strong>Demand & Drop Orchestration</strong> sub-project improves Quick Service Restaurant (QSR) kitchen efficiency by predicting near-term menu item demand and turning those predictions into actionable cooking recommendations for kitchen staff. It acts as a real-time decision-support system so managers can make better prep decisions without changing physical kitchen infrastructure.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <strong>Demand forecasting</strong>
+            <span>Item-level, 15-min intervals, 2–4 hours ahead</span>
+          </div>
+          <div class="card">
+            <strong>Drop schedule</strong>
+            <span>When and how much to cook, by station</span>
+          </div>
+          <div class="card">
+            <strong>Risk visibility</strong>
+            <span>Stockout and waste risk per recommendation</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="phase1">
+        <p class="section-label">Phase 1</p>
+        <h2>Demand Intelligence</h2>
+        <p>
+          The system forecasts demand at the menu-item level in 15-minute buckets for the next 2–4 hours. Forecasts are not single numbers; they are probabilistic (P50, P75, P90) so the business can see expected demand and uncertainty. Forecasts refresh every 5–10 minutes as new orders arrive.
+        </p>
+        <div class="phase-block">
+          <h3>Inputs to the forecast</h3>
+          <ul>
+            <li><strong>Historical order data</strong> — patterns by day part, day of week, seasonality</li>
+            <li><strong>Real-time order velocity</strong> — current pace of orders vs. typical</li>
+            <li><strong>Channel mix</strong> — UberEats, DoorDash, drive-thru, dine-in (each with different timing and basket mix)</li>
+            <li><strong>Promotions</strong> — active offers and their effect on item demand</li>
+            <li><strong>External signals</strong> — e.g. weather, local events</li>
+          </ul>
+        </div>
+        <div class="phase-block">
+          <h3>Outputs</h3>
+          <ul>
+            <li>Item-level demand forecasts (P50, P75, P90) for the next 2–4 hours</li>
+            <li>Refreshed every 5–10 minutes for near real-time planning</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="why-probabilities">
+        <p class="section-label">Phase 1</p>
+        <h2>Why Three Probabilities?</h2>
+        <p>Different operational policies map to different forecast percentiles. Stores can choose the strategy that fits their priorities.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Policy</th>
+                <th>Forecast used</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Low waste strategy</td>
+                <td>P50</td>
+              </tr>
+              <tr>
+                <td>Balanced strategy</td>
+                <td>P75</td>
+              </tr>
+              <tr>
+                <td>Stockout prevention</td>
+                <td>P90</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="why-15min">
+        <p class="section-label">Design rationale</p>
+        <h2>Why 15-Minute Windows & 2–4 Hour Horizon?</h2>
+        <p>
+          Forecasting must align with the decision cycle of the kitchen, not just statistical accuracy. Below is the reasoning from operations, product, and modeling perspectives.
+        </p>
+
+        <h4><span class="reason-num">1.</span> Kitchen decisions are made in minutes, not hours</h4>
+        <p>In a QSR kitchen (e.g. Popeyes), most operational decisions happen in very short cycles. Managers constantly decide: “Should I drop another batch?”, “Do I need more tenders ready?”, “Are we going to run out?” — every 5–15 minutes. Hourly predictions are too coarse to guide these decisions.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Operation</th><th>Typical time</th></tr></thead>
+            <tbody>
+              <tr><td>Fry cycle</td><td>5–7 minutes</td></tr>
+              <tr><td>Hold time</td><td>10–20 minutes</td></tr>
+              <tr><td>Order spikes</td><td>Within minutes</td></tr>
+              <tr><td>Drive-thru rush</td><td>10–30 minutes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><em>Example:</em> A forecast of “60 tenders between 6–7 PM” still doesn’t tell the manager whether most orders will come 6:00–6:15 or 6:45–7:00 — that difference drives stockouts or waste.</p>
+
+        <h4><span class="reason-num">2.</span> Food holding constraints</h4>
+        <p>Many QSR items cannot be held for long. If you forecast demand for 3 hours, you cannot cook that food early because it will expire. Production must be just-in-time, which requires short time-window predictions.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Hold time</th></tr></thead>
+            <tbody>
+              <tr><td>Chicken tenders</td><td>~15 minutes</td></tr>
+              <tr><td>Fries</td><td>~7 minutes</td></tr>
+              <tr><td>Biscuits</td><td>~30 minutes</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4><span class="reason-num">3.</span> Demand is extremely volatile</h4>
+        <p>Restaurant demand fluctuates quickly due to Uber Eats batch orders, weather, local events, game nights, delivery driver clustering. Example: 5:45 PM → 3 orders; 5:50 PM → 4 orders; 5:55 PM → 18 orders. The system must predict short-horizon demand and update continuously.</p>
+
+        <h4><span class="reason-num">4.</span> Forecast accuracy drops with longer horizons</h4>
+        <p>For operational decisions, accuracy matters more than horizon. A highly accurate 15-minute forecast is far more useful than a rough 6-hour forecast.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Horizon</th><th>Forecast accuracy</th></tr></thead>
+            <tbody>
+              <tr><td>15 min</td><td>High</td></tr>
+              <tr><td>1 hour</td><td>Moderate</td></tr>
+              <tr><td>3 hours</td><td>Lower</td></tr>
+              <tr><td>24 hours</td><td>Much lower</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4><span class="reason-num">5.</span> Enables rolling forecast updates</h4>
+        <p>With 15-minute windows, the system can refresh every 5–10 minutes (e.g. 5:30 → 5:40 → 5:50 → 6:00), incorporating new orders, order velocity, and sudden spikes. This creates an adaptive system, not a static forecast.</p>
+
+        <h4><span class="reason-num">6.</span> Aligns with cooking batch sizes</h4>
+        <p>Kitchen production happens in batches (e.g. fryer capacity = 16 tenders, cook time = 6 min). Fine-grained predictions (e.g. 6:00–6:15 → 12 tenders, 6:15–6:30 → 6 tenders) allow recommendations like “Drop 1 basket now; next drop at 6:12 PM.” Hourly forecasts cannot determine when batches should be cooked.</p>
+
+        <h4><span class="reason-num">7.</span> Short-term forecast enables drop scheduling</h4>
+        <p>The goal is actionable kitchen instructions (e.g. “5:42 PM → Drop 1 basket; 6:03 PM → Drop 1 basket”), which require fine-grained demand predictions.</p>
+
+        <h4><span class="reason-num">8.</span> Long-term forecast still has value (different decisions)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Horizon</th><th>Decision type</th></tr></thead>
+            <tbody>
+              <tr><td>15 min – 2 hours</td><td>Cooking batches</td></tr>
+              <tr><td>4–12 hours</td><td>Staff allocation</td></tr>
+              <tr><td>1–7 days</td><td>Inventory planning</td></tr>
+              <tr><td>2–4 weeks</td><td>Supply chain</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Kitchen IQ’s immediate value lies in the shortest horizon layer.</p>
+
+        <h4><span class="reason-num">9.</span> Why the horizon is 2–4 hours</h4>
+        <p>Managers need visibility into upcoming demand (e.g. “heavy surge at 7 PM”) to pre-stage ingredients, thaw frozen chicken, and assign staff to fryer stations. So: short time buckets + medium horizon visibility.</p>
+
+        <h4><span class="reason-num">10.</span> Conceptual framework</h4>
+        <div class="phase-block">
+          <ul>
+            <li><strong>Prediction granularity</strong> → 15 minutes</li>
+            <li><strong>Prediction horizon</strong> → 2–4 hours</li>
+            <li><strong>Forecast update</strong> → every 5–10 minutes</li>
+          </ul>
+        </div>
+        <p>This combination allows the system to react to real-time demand, guide cooking decisions, minimize waste, and prevent stockouts.</p>
+
+        <div class="callout">
+          <p><strong>Key takeaway:</strong> The system is not designed to predict the future perfectly. It is designed to continuously guide kitchen decisions in small time intervals — which is why short-horizon, high-frequency forecasting is far more valuable than long-term predictions for this use case.</p>
+        </div>
+      </section>
+
+      <section id="phase2">
+        <p class="section-label">Phase 2</p>
+        <h2>Kitchen Execution Intelligence</h2>
+        <p>
+          Forecasted demand is converted into operational cooking recommendations. Each store has a configurable digital kitchen model: fryer capacity, batch sizes, cook times, hold times, and station constraints. Demand & Drop Orchestration uses this model to generate a drop schedule that recommends when and how much food to cook while balancing stockout risk and food waste.
+        </p>
+        <div class="phase-block">
+          <h3>Digital kitchen model (per store)</h3>
+          <ul>
+            <li>Fryer and equipment capacity</li>
+            <li>Batch sizes and cook times by item</li>
+            <li>Hold times and quality windows</li>
+            <li>Station constraints and labor availability</li>
+          </ul>
+        </div>
+        <div class="phase-block">
+          <h3>Outputs</h3>
+          <ul>
+            <li>Drop schedule: specific times and quantities to cook</li>
+            <li>Estimated stockout and waste risk per recommendation</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="output">
+        <p class="section-label">Output</p>
+        <h2>Output</h2>
+        <p>
+          Demand forecasts and drop recommendations by scenario. Use the subsections below to explore Phase 1 (demand by item and time window), Phase 2 (drop schedule and risk), and a combined Final example with assumptions.
+        </p>
+      </section>
+
+      <section id="example-phase1">
+        <p class="section-label">Output · Example – Phase 1</p>
+        <h2>Example – Phase 1</h2>
+        <p>
+          Item-level demand forecasts by 15-minute window. Select a scenario to see P50, P75, or P90 demand for each menu item.
+        </p>
+        <div class="scenario-select-wrap">
+          <label for="scenario-select-phase1">Scenario</label>
+          <select id="scenario-select-phase1" class="scenario-select" aria-label="Choose demand forecast scenario">
+            <option value="p50">P50 → Balanced / expected demand</option>
+            <option value="p75" selected>P75 → Safer buffer</option>
+            <option value="p90">P90 → Rush / stockout prevention</option>
+          </select>
+        </div>
+
+        <div id="panel-phase1-p50" class="scenario-panel">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P50 scenario — expected demand</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>6:00–6:15</th>
+                  <th>6:15–6:30</th>
+                  <th>6:30–6:45</th>
+                  <th>6:45–7:00</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>3Pc Chicken Tenders</td><td>6</td><td>5</td><td>7</td><td>6</td></tr>
+                <tr><td>8Pc Chicken Tenders</td><td>4</td><td>3</td><td>5</td><td>4</td></tr>
+                <tr><td>Chicken Sandwich</td><td>8</td><td>7</td><td>9</td><td>8</td></tr>
+                <tr><td>Cajun Fries</td><td>10</td><td>9</td><td>11</td><td>10</td></tr>
+                <tr><td>Biscuits</td><td>7</td><td>6</td><td>8</td><td>7</td></tr>
+                <tr><td>Mashed Potatoes</td><td>5</td><td>4</td><td>6</td><td>5</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Interpretation</strong>
+            <ul>
+              <li>Represents median expected demand</li>
+              <li>Used for low-waste production strategy</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="panel-phase1-p75" class="scenario-panel active">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P75 scenario — balanced strategy</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>6:00–6:15</th>
+                  <th>6:15–6:30</th>
+                  <th>6:30–6:45</th>
+                  <th>6:45–7:00</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>3Pc Chicken Tenders</td><td>7</td><td>6</td><td>8</td><td>7</td></tr>
+                <tr><td>8Pc Chicken Tenders</td><td>5</td><td>4</td><td>6</td><td>5</td></tr>
+                <tr><td>Chicken Sandwich</td><td>10</td><td>9</td><td>11</td><td>10</td></tr>
+                <tr><td>Cajun Fries</td><td>12</td><td>11</td><td>13</td><td>12</td></tr>
+                <tr><td>Biscuits</td><td>9</td><td>8</td><td>10</td><td>9</td></tr>
+                <tr><td>Mashed Potatoes</td><td>6</td><td>5</td><td>7</td><td>6</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Interpretation</strong>
+            <ul>
+              <li>Provides moderate buffer</li>
+              <li>Usually the default production plan</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="panel-phase1-p90" class="scenario-panel">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P90 scenario — rush / stockout protection</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>6:00–6:15</th>
+                  <th>6:15–6:30</th>
+                  <th>6:30–6:45</th>
+                  <th>6:45–7:00</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>3Pc Chicken Tenders</td><td>9</td><td>8</td><td>10</td><td>9</td></tr>
+                <tr><td>8Pc Chicken Tenders</td><td>7</td><td>6</td><td>8</td><td>7</td></tr>
+                <tr><td>Chicken Sandwich</td><td>12</td><td>11</td><td>13</td><td>12</td></tr>
+                <tr><td>Cajun Fries</td><td>15</td><td>14</td><td>16</td><td>15</td></tr>
+                <tr><td>Biscuits</td><td>11</td><td>10</td><td>12</td><td>11</td></tr>
+                <tr><td>Mashed Potatoes</td><td>8</td><td>7</td><td>9</td><td>8</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Interpretation</strong>
+            <ul>
+              <li>Prioritizes service speed</li>
+              <li>Minimizes stockouts</li>
+              <li>Accepts higher waste risk</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="example-phase2">
+        <p class="section-label">Output · Example – Phase 2</p>
+        <h2>Example – Phase 2</h2>
+        <p>
+          Each scenario uses a different risk tolerance (P50, P75, P90). Select one to see the corresponding drop schedule and risk metrics.
+        </p>
+        <div class="scenario-select-wrap">
+          <label for="scenario-select">Scenario</label>
+          <select id="scenario-select" class="scenario-select" aria-label="Choose recommendation scenario">
+            <option value="p50">P50 → Balanced / expected demand</option>
+            <option value="p75" selected>P75 → Safer buffer</option>
+            <option value="p90">P90 → Rush / stockout prevention</option>
+          </select>
+        </div>
+
+        <div id="panel-p50" class="scenario-panel">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P50 scenario (expected demand strategy)</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Action</th><th>Time</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Drop 1 basket of tenders</td><td>5:42 PM</td></tr>
+                <tr><td>Drop 1 basket of tenders</td><td>6:12 PM</td></tr>
+                <tr><td><strong>Estimated Stockout Risk</strong></td><td>15%</td></tr>
+                <tr><td><strong>Estimated Waste Risk</strong></td><td>2%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Interpretation:</strong>
+            <ul>
+              <li>Optimized for minimal waste</li>
+              <li>Accepts a higher risk of stockouts if demand spikes</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="panel-p75" class="scenario-panel active">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P75 scenario (balanced strategy)</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Action</th><th>Time</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Drop 2 baskets of tenders</td><td>5:42 PM</td></tr>
+                <tr><td>Drop 1 basket of tenders</td><td>6:05 PM</td></tr>
+                <tr><td><strong>Estimated Stockout Risk</strong></td><td>8%</td></tr>
+                <tr><td><strong>Estimated Waste Risk</strong></td><td>4%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Interpretation:</strong>
+            <ul>
+              <li>Balanced tradeoff</li>
+              <li>Slight buffer against demand spikes</li>
+              <li>Usually the default recommendation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="panel-p90" class="scenario-panel">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P90 scenario (rush / peak strategy)</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Action</th><th>Time</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Drop 2 baskets of tenders</td><td>5:42 PM</td></tr>
+                <tr><td>Drop 2 baskets of tenders</td><td>6:00 PM</td></tr>
+                <tr><td><strong>Estimated Stockout Risk</strong></td><td>2%</td></tr>
+                <tr><td><strong>Estimated Waste Risk</strong></td><td>9%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Interpretation:</strong>
+            <ul>
+              <li>Prioritizes service speed</li>
+              <li>Minimizes stockouts</li>
+              <li>Accepts higher waste risk</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="example-final">
+        <p class="section-label">Output · Example – Final</p>
+        <h2>Example – Final</h2>
+        <p>
+          End-to-end view: assumptions, demand forecast, and drop recommendations by scenario. (Illustrative; operationally reasonable.)
+        </p>
+
+        <p class="section-label" style="margin-top: 1.5rem;">Assumptions used</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Kitchen practice</th>
+                <th>Batch size</th>
+                <th>Cook time</th>
+                <th>Hold time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Chicken Sandwich</td><td>Fry chicken fillet</td><td>12 fillets</td><td>~6 min</td><td>~20 min</td></tr>
+              <tr><td>3Pc Chicken Tenders</td><td>Fry tenders</td><td>16 tenders</td><td>~6 min</td><td>~15 min</td></tr>
+              <tr><td>8Pc Chicken Tenders</td><td>Fry tenders</td><td>16 tenders</td><td>~6 min</td><td>~15 min</td></tr>
+              <tr><td>Cajun Fries</td><td>Fry fries</td><td>8 servings</td><td>~3 min</td><td>~7 min</td></tr>
+              <tr><td>Biscuits</td><td>Oven baked</td><td>12 biscuits</td><td>~12 min</td><td>~30 min</td></tr>
+              <tr><td>Mashed Potatoes</td><td>Heated in batch</td><td>10 servings</td><td>~5 min</td><td>~30 min</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.75rem;">
+          <strong>Forecast horizon:</strong> 6:00–7:00 PM &nbsp;|&nbsp; <strong>Granularity:</strong> 15 minutes
+        </p>
+
+        <div class="scenario-select-wrap" style="margin-top: 1.5rem;">
+          <label for="scenario-select-final">Scenario</label>
+          <select id="scenario-select-final" class="scenario-select" aria-label="Choose final example scenario">
+            <option value="p50">P50 → Balanced / expected demand</option>
+            <option value="p75" selected>P75 → Safer buffer</option>
+            <option value="p90">P90 → Rush / stockout prevention</option>
+          </select>
+        </div>
+
+        <div id="panel-final-p50" class="scenario-panel">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P50 scenario — expected demand (low waste strategy)</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>6:00–6:15</th>
+                  <th>6:15–6:30</th>
+                  <th>6:30–6:45</th>
+                  <th>6:45–7:00</th>
+                  <th>Recommendation</th>
+                  <th>Stockout risk</th>
+                  <th>Waste risk</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Chicken Sandwich</td><td>8</td><td>7</td><td>9</td><td>8</td><td>Drop 1 fillet batch at 5:55 PM</td><td>14%</td><td>2%</td></tr>
+                <tr><td>3Pc Chicken Tenders</td><td>6</td><td>5</td><td>7</td><td>6</td><td>Drop 1 tender basket at 5:56 PM</td><td>16%</td><td>2%</td></tr>
+                <tr><td>8Pc Chicken Tenders</td><td>4</td><td>3</td><td>5</td><td>4</td><td>Covered by tender batch</td><td>18%</td><td>1%</td></tr>
+                <tr><td>Cajun Fries</td><td>10</td><td>9</td><td>11</td><td>10</td><td>Fry batch every ~7 min</td><td>12%</td><td>3%</td></tr>
+                <tr><td>Biscuits</td><td>7</td><td>6</td><td>8</td><td>7</td><td>Bake 1 tray at 5:50 PM</td><td>9%</td><td>4%</td></tr>
+                <tr><td>Mashed Potatoes</td><td>5</td><td>4</td><td>6</td><td>5</td><td>Heat 1 batch at 5:55 PM</td><td>8%</td><td>3%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Operational interpretation</strong>
+            <ul>
+              <li>Designed for minimal waste</li>
+              <li>Slightly higher risk if delivery orders spike</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="panel-final-p75" class="scenario-panel active">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P75 scenario — balanced strategy (recommended default)</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>6:00–6:15</th>
+                  <th>6:15–6:30</th>
+                  <th>6:30–6:45</th>
+                  <th>6:45–7:00</th>
+                  <th>Recommendation</th>
+                  <th>Stockout risk</th>
+                  <th>Waste risk</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Chicken Sandwich</td><td>10</td><td>9</td><td>11</td><td>10</td><td>Drop batch at 5:55 PM + next at 6:15 PM</td><td>7%</td><td>4%</td></tr>
+                <tr><td>3Pc Chicken Tenders</td><td>7</td><td>6</td><td>8</td><td>7</td><td>Drop 2 tender baskets at 5:56 PM</td><td>8%</td><td>4%</td></tr>
+                <tr><td>8Pc Chicken Tenders</td><td>5</td><td>4</td><td>6</td><td>5</td><td>Covered by tender batch</td><td>9%</td><td>3%</td></tr>
+                <tr><td>Cajun Fries</td><td>12</td><td>11</td><td>13</td><td>12</td><td>Fry every ~5 min</td><td>6%</td><td>5%</td></tr>
+                <tr><td>Biscuits</td><td>9</td><td>8</td><td>10</td><td>9</td><td>Bake tray at 5:50 PM + next 6:20 PM</td><td>5%</td><td>6%</td></tr>
+                <tr><td>Mashed Potatoes</td><td>6</td><td>5</td><td>7</td><td>6</td><td>Heat batch at 5:55 PM</td><td>5%</td><td>4%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Operational interpretation</strong>
+            <ul>
+              <li>Balanced tradeoff</li>
+              <li>Handles moderate demand spikes</li>
+              <li>Default strategy for Kitchen IQ</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="panel-final-p90" class="scenario-panel">
+          <p class="section-label" style="margin-bottom: 0.5rem;">P90 scenario — rush protection strategy</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>6:00–6:15</th>
+                  <th>6:15–6:30</th>
+                  <th>6:30–6:45</th>
+                  <th>6:45–7:00</th>
+                  <th>Recommendation</th>
+                  <th>Stockout risk</th>
+                  <th>Waste risk</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Chicken Sandwich</td><td>12</td><td>11</td><td>13</td><td>12</td><td>Drop 2 fillet batches before rush</td><td>2%</td><td>9%</td></tr>
+                <tr><td>3Pc Chicken Tenders</td><td>9</td><td>8</td><td>10</td><td>9</td><td>Drop 3 tender baskets</td><td>3%</td><td>10%</td></tr>
+                <tr><td>8Pc Chicken Tenders</td><td>7</td><td>6</td><td>8</td><td>7</td><td>Covered by tender batch</td><td>3%</td><td>8%</td></tr>
+                <tr><td>Cajun Fries</td><td>15</td><td>14</td><td>16</td><td>15</td><td>Continuous fry cycles</td><td>2%</td><td>12%</td></tr>
+                <tr><td>Biscuits</td><td>11</td><td>10</td><td>12</td><td>11</td><td>Bake 2 trays</td><td>2%</td><td>9%</td></tr>
+                <tr><td>Mashed Potatoes</td><td>8</td><td>7</td><td>9</td><td>8</td><td>Heat 2 batches</td><td>2%</td><td>8%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="interpretation">
+            <strong>Operational interpretation</strong>
+            <ul>
+              <li>Prioritizes service speed</li>
+              <li>Minimizes stockouts</li>
+              <li>Accepts higher waste risk</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="impact">
+        <p class="section-label">Expected impact</p>
+        <h2>Business Outcomes</h2>
+        <p>
+          By aligning production with predicted demand and capacity, Kitchen IQ’s Demand & Drop Orchestration is designed to deliver measurable improvements across waste, availability, and speed.
+        </p>
+        <div class="impact-grid">
+          <div class="impact-card">
+            <div class="value">5–10%</div>
+            <div class="label">Food Waste Reduction</div>
+            <div class="rationale">Fewer over-drops and better batch timing; cook only what near-term demand suggests.</div>
+          </div>
+          <div class="impact-card">
+            <div class="value">8–15%</div>
+            <div class="label">Stockout Reduction</div>
+            <div class="rationale">Better visibility into upcoming demand and drop schedules reduces runouts at peak.</div>
+          </div>
+          <div class="impact-card">
+            <div class="value">3–8%</div>
+            <div class="label">Service Time Improvement</div>
+            <div class="rationale">Product is ready when orders arrive; less wait-for-cook during rushes.</div>
+          </div>
+          <div class="impact-card">
+            <div class="value">5–12%</div>
+            <div class="label">Reduction in Preparation Time</div>
+            <div class="rationale">Less unnecessary prep and batching when recommendations guide what to cook and when.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="positioning">
+        <p class="section-label">Strategic positioning</p>
+        <h2>More Than a Dashboard</h2>
+        <p>
+          <strong>Kitchen IQ</strong> is not just a forecasting dashboard. As part of Kitchen IQ, <strong>Demand & Drop Orchestration</strong> is a real-time kitchen orchestration engine that combines demand forecasting, capacity awareness, and operational planning to guide kitchen production decisions. Leadership can position it as a core system for kitchen execution, not only for reporting.
+        </p>
+        <div class="callout">
+          <p>
+            <strong>Summary:</strong> Under Kitchen IQ, Demand & Drop Orchestration connects demand intelligence (what will be ordered) with execution intelligence (what to cook and when), so kitchens can reduce waste, avoid stockouts, and improve service times without changing physical infrastructure.
+          </p>
+        </div>
+      </section>
+
+      <section id="appendix">
+        <p class="section-label">Reference</p>
+        <h2>Appendix</h2>
+        <p>Food wastage data supporting Kitchen IQ demand & drop orchestration impact.</p>
+        <figure class="appendix-figure">
+          <img src="food%20wastage%20data.png" alt="Food wastage data" />
+          <figcaption>Food wastage data</figcaption>
+        </figure>
+        <p style="margin-top: 1.5rem; font-size: 0.9rem;">
+          <strong>Reference:</strong> <a href="https://dokumen.pub/foodservice-management-principles-and-practices-thirteenth-edition-9780133762754-1292104198-9781292104195-0133762750.html" target="_blank" rel="noopener noreferrer">Foodservice Management: Principles and Practices (13th ed.)</a>
+        </p>
+      </section>
+    </div>
+    <footer>
+      Kitchen IQ · Demand & Drop Orchestration — Confidential · Leadership Brief · <a href="https://www.itsacheckmate.com/" target="_blank" rel="noopener">Checkmate</a>
+    </footer>
+  </main>
+  </div>
+  <script>
+    (function() {
+      var select = document.getElementById('scenario-select-phase1');
+      var section = document.getElementById('example-phase1');
+      if (!select || !section) return;
+      var panels = section.querySelectorAll('.scenario-panel');
+      function showPanel(value) {
+        panels.forEach(function(p) {
+          p.classList.toggle('active', p.id === 'panel-phase1-' + value);
+        });
+      }
+      select.addEventListener('change', function() { showPanel(select.value); });
+      showPanel(select.value);
+    })();
+    (function() {
+      var select = document.getElementById('scenario-select');
+      var section = document.getElementById('example-phase2');
+      if (!select || !section) return;
+      var panels = section.querySelectorAll('.scenario-panel');
+      function showPanel(value) {
+        panels.forEach(function(p) {
+          p.classList.toggle('active', p.id === 'panel-' + value);
+        });
+      }
+      select.addEventListener('change', function() { showPanel(select.value); });
+      showPanel(select.value);
+    })();
+    (function() {
+      var select = document.getElementById('scenario-select-final');
+      var section = document.getElementById('example-final');
+      if (!select || !section) return;
+      var panels = section.querySelectorAll('.scenario-panel');
+      function showPanel(value) {
+        panels.forEach(function(p) {
+          p.classList.toggle('active', p.id === 'panel-final-' + value);
+        });
+      }
+      select.addEventListener('change', function() { showPanel(select.value); });
+      showPanel(select.value);
+    })();
+  </script>
+</body>
+</html>
